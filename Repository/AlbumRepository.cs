@@ -9,7 +9,7 @@ namespace KpopZtation_GroupB.Repository
 {
     public class AlbumRepository
     {
-        private static KpopZtationDatabaseEntities db = DatabaseSingleton.GetInstance();
+        private static KpopDatabaseEntities db = DatabaseSingleton.GetInstance();
         // view album by artist id
         public static List<Album> GetAlbumByArtistId(int artistId)
         {
@@ -45,6 +45,18 @@ namespace KpopZtation_GroupB.Repository
             return false;
         }
 
+        public static bool UpdateAlbumStock(int albumId, int qtyBought)
+        {
+            Album album = GetAlbumById(albumId);
+            if(album != null)
+            {
+                album.AlbumStock = album.AlbumStock - qtyBought;
+                db.SaveChanges();
+                return true;
+            }
+            return false;
+        }
+
         public static bool RemoveAlbum(int albumId)
         {
             Album album = GetAlbumById(albumId);
@@ -55,6 +67,19 @@ namespace KpopZtation_GroupB.Repository
                 return true;
             }
             return false;
+        }
+
+        public static bool RemoveAlbumByArtist(List<Album> album)
+        {
+            if(album != null)
+            {
+                db.Albums.RemoveRange(album);
+                db.SaveChanges();
+                return true;
+            }
+            return false;
+            
+            
         }
     }
 }

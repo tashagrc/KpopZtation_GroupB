@@ -9,7 +9,7 @@ namespace KpopZtation_GroupB.Repository
 {
     public class ArtistRepository
     {
-        private static KpopZtationDatabaseEntities db = DatabaseSingleton.GetInstance();
+        private static KpopDatabaseEntities db = DatabaseSingleton.GetInstance();
         public static List<Artist> GetAllArtist()
         {
             return (from a in db.Artists select a).ToList();
@@ -47,6 +47,16 @@ namespace KpopZtation_GroupB.Repository
                 a.ArtistName = name;
                 a.ArtistImage = image;
                 db.SaveChanges();
+                return true;
+            }
+            return false;
+        }
+
+        public static bool CheckArtistNameUnique(String name)
+        {
+            Artist artist = (from a in db.Artists where a.ArtistName == name select a).FirstOrDefault();
+            if(artist == null)
+            {
                 return true;
             }
             return false;

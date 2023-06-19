@@ -11,11 +11,12 @@
         * {
             margin: 0;
             padding: 0;
+            font-family: 'Segoe UI', sans-serif;
         }
 
         nav {
             padding: 20px;
-            background-color:navy;
+            background-color:#403F3B;
         }
 
         .linkBtn {
@@ -33,7 +34,7 @@
         footer {
             padding: 5px;
             text-align:center;
-            background-color:navy;
+            background-color:#403F3B;
             color: white;
         }
 
@@ -43,32 +44,75 @@
         }
 
         .contentClass {
-            background-color:beige;
+            background-color:#FEFCED;
             padding:30px;
             min-height: 100vh;
         }
+
+        .imgWidth-250 {
+            width: 250px;
+            height: auto;
+        }
+
+        .imgWidth-500 {
+            width: 500px;
+            height: auto;
+        }
+
+        .role {
+            width: 50%;
+            margin: auto;
+            text-align: center;
+            color: white;
+        }
+
+        .role-container {
+            background-color: #4D4B46;
+            padding: 5px;
+        }
+        
     </style>
 </head>
 <body>
     <form id="form1" runat="server">
         <nav>
             <h1 class="logo">KpopZtation</h1>
+            <% if (role == "A")
+                { %> 
             <asp:LinkButton ID="homepageLink" runat="server" CssClass="linkBtn" OnClick="homepageLink_Click">Home</asp:LinkButton>
-            <asp:LinkButton ID="loginpageLink" runat="server" CssClass="linkBtn" OnClick="loginpageLink_Click">Login</asp:LinkButton>
-            <asp:LinkButton ID="registerpageLink" runat="server" CssClass="linkBtn" OnClick="registerpageLink_Click">Register</asp:LinkButton>
-            <asp:LinkButton ID="cartLink" runat="server" CssClass="linkBtn" OnClick="cartLink_Click">Cart</asp:LinkButton>
             <asp:LinkButton ID="transactionLink" runat="server" CssClass="linkBtn" OnClick="transactionLink_Click">Transaction</asp:LinkButton>
             <asp:LinkButton ID="updateProfileLink" runat="server" CssClass="linkBtn" OnClick="updateProfileLink_Click">Update Profile</asp:LinkButton>
-            <asp:LinkButton ID="logoutpageLink" runat="server" CssClass="linkBtn" OnClick="logoutpageLink_Click">Logout</asp:LinkButton>
+            <asp:LinkButton ID="logoutpageLink1" runat="server" CssClass="linkBtn" OnClick="logoutpageLink_Click">Logout</asp:LinkButton>
+            <%}
+                else if (role == "C")
+                {%>
+            <asp:LinkButton ID="homepageLink2" runat="server" CssClass="linkBtn" OnClick="homepageLink_Click">Home</asp:LinkButton>
+            <asp:LinkButton ID="cartLink" runat="server" CssClass="linkBtn" OnClick="cartLink_Click">Cart</asp:LinkButton>
+            <asp:LinkButton ID="transactionLink2" runat="server" CssClass="linkBtn" OnClick="transactionLink2_Click">Transaction</asp:LinkButton>
+            <asp:LinkButton ID="updateProfileLink2" runat="server" CssClass="linkBtn" OnClick="updateProfileLink_Click">Update Profile</asp:LinkButton>
+            <asp:LinkButton ID="logoutpageLink2" runat="server" CssClass="linkBtn" OnClick="logoutpageLink_Click">Logout</asp:LinkButton>
+            
+            <%}
+                else
+                { %>
+            <asp:LinkButton ID="homepageLink3" runat="server" CssClass="linkBtn" OnClick="homepageLink_Click">Home</asp:LinkButton>
+            <asp:LinkButton ID="loginpageLink" runat="server" CssClass="linkBtn" OnClick="loginpageLink_Click">Login</asp:LinkButton>
+            <asp:LinkButton ID="registerpageLink" runat="server" CssClass="linkBtn" OnClick="registerpageLink_Click">Register</asp:LinkButton>
+            <%} %>
         </nav>
+        <div class="role-container">
+            <p class="role">You are logged in as a 
+                <asp:Label ID="currentRole" runat="server" Text=""></asp:Label>
+            </p>
+        </div>
         <div>
             <asp:ContentPlaceHolder ID="contentBody" runat="server">
                 
             </asp:ContentPlaceHolder>
         </div>
         <footer>
-            <h5>2023 - Lab PSD - Group B</h5>
-            <h6>Findy, Gilbert, Juan, Natasha</h6>
+            <h5>All rights reserved - 2023</h5>
+            <h6>Natasha, Juan, Findy, Gilbert</h6>
         </footer>
     </form>
 </body>

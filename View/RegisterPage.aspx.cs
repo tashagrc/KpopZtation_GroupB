@@ -1,4 +1,5 @@
 ﻿using KpopZtation_GroupB.Controller;
+using KpopZtation_GroupB.Model;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -12,12 +13,27 @@ namespace KpopZtation_GroupB.View
     {
         protected void Page_Load(object sender, EventArgs e)
         {
+            Customer cust = (Customer)Session["customer"];
 
+            if (cust != null || Request.Cookies["customer_cookie"] != null)
+            {
+                Response.Redirect("~/View/HomePage.aspx");
+            }
         }
 
         protected void registerBtn_Click(object sender, EventArgs e)
         {
-            CustomerController.doRegister(nameTb.Text, emailTb.Text, genderRb.SelectedItem.Value.ToString(), addressTb.Text, passwordTb.Text);
+            String name = nameTb.Text;
+            String email = emailTb.Text;
+            String gender = genderRb.SelectedValue;
+            String address = addressTb.Text;
+            String password = passwordTb.Text;
+            errorMsg.Text = CustomerController.validateRegisterCustomer(name, email, gender, address, password);
+            if(errorMsg.Text == "")
+            {
+                Response.Redirect("~/View/LoginPage.aspx");
+            }
+            
         }
     }
 }
